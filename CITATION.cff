@@ -1,19 +1,16 @@
 cff-version: 1.2.0
-message: "If you use this code, please cite the article and this repository."
+message: "If you use this code, please cite it as below and cite the article."
+type: software
 title: "Where outer hair cells deliver net power in a cochlear model of cat and human: model code, parameter files and scripts"
 authors:
   - family-names: Neely
-    given-names: Stephen T.
+    given-names: "Stephen T."
     orcid: "https://orcid.org/0000-0002-1349-5386"
-    affiliation: Boys Town National Research Hospital
-version: "1.0.0"
-ldate-released: "2026-11-10"
+    affiliation: "Boys Town National Research Hospital"
+version: "1.0.1"
 license: BSD-3-Clause
-preferred-citation:
-  type: article
-  title: "Where outer hair cells deliver net power in a cochlear model of cat and human"
-  authors:
-    - family-names: Neely
-      given-names: Stephen T.
-      orcid: "https://orcid.org/0000-0002-1349-5386"
-  journal: "The Journal of the Acoustical Society of America"
+keywords:
+  - cochlear amplifier
+  - cochlear mechanics
+  - outer hair cells
+  - Hopf bifurcation

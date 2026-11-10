@@ -1,0 +1,15 @@
+{
+  "upload_type": "software",
+  "title": "Where outer hair cells deliver net power in a cochlear model of cat and human: model code, parameter files and scripts",
+  "version": "1.0.1",
+  "description": "Model code, fitted parameter files and scripts that produce the numbers, tables and figures of the article \"Where outer hair cells deliver net power in a cochlear model of cat and human\" (submitted to the Journal of the Acoustical Society of America) and of its supplementary material. The model is a one-dimensional long-wave transmission line with three-degree-of-freedom sections (basilar membrane, reticular lamina, tectorial membrane) and a saturating outer-hair-cell force. Python 3 with NumPy and SciPy. The source code is licensed under the BSD 3-Clause License; parameter files, data, documentation and figure files are licensed under CC BY 4.0 (see LICENSE-CC-BY-4.0.txt).",
+  "creators": [
+    {
+      "name": "Neely, Stephen T.",
+      "affiliation": "Boys Town National Research Hospital",
+      "orcid": "0000-0002-1349-5386"
+    }
+  ],
+  "license": "bsd-3-clause",
+  "keywords": ["cochlear amplifier", "cochlear mechanics", "outer hair cells", "Hopf bifurcation"]
+}
