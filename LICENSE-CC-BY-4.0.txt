@@ -1,0 +1,13 @@
+Copyright (c) 2026, Stephen T. Neely
+
+The parameter files (model/*.json, model/earlier/, model/init/), the data
+file data/tc_bins.json, the documentation (README.md, params/, supplement/)
+and the figure files produced by figures/ are licensed under the Creative
+Commons Attribution 4.0 International License (CC BY 4.0).
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+data/tc_bins.json holds binned medians of cat auditory-nerve tuning curves
+provided by M. C. Liberman and B. Delgutte. Please credit them when using
+these values. The individual curves are not part of this repository.
+
+The source code is licensed under the BSD 3-Clause License (LICENSE).

@@ -1,0 +1,7 @@
+model/out/
+__pycache__/
+*.pyc
+model/tc.plt
+state_c708/
+figures/plt/
+figures/fig1.plt
