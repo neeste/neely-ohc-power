@@ -7,9 +7,8 @@ authors:
     orcid: "https://orcid.org/0000-0002-1349-5386"
     affiliation: Boys Town National Research Hospital
 version: "1.0.0"
-license:
-  - BSD-3-Clause
-  - CC-BY-4.0
+ldate-released: "2026-11-10"
+license: BSD-3-Clause
 preferred-citation:
   type: article
   title: "Where outer hair cells deliver net power in a cochlear model of cat and human"
