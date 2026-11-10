@@ -7,7 +7,7 @@ authors:
     given-names: "Stephen T."
     orcid: "https://orcid.org/0000-0002-1349-5386"
     affiliation: "Boys Town National Research Hospital"
-version: "1.0.1"
+version: "1.0.4"
 license: BSD-3-Clause
 keywords:
   - cochlear amplifier
