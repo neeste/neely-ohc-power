@@ -1,4 +1,4 @@
-# Model code for "Where outer hair cells deliver net power in a cochlear model of cat and human"
+# Model code for "Outer hair cells replace dissipation at the response peak in a cochlear model of cat and human"
 
 Stephen T. Neely, Boys Town National Research Hospital.
 
@@ -44,7 +44,7 @@ other earlier states that some supplementary tables use. None of these is read b
 criterion by default, with the read-out constants fitted for it (C0 79.47 dB, f_hp 0.050 kHz,
 f_lp 40.0 kHz, n_lp 0.30; `base_ckpt.json`, `combo_c856v.json`). The displacement criterion of the fit
 and its read-out constants (`base_ckpt_disp.json`, `combo_r7b.json`) are selected by the environment
-variable `FTC_CRIT=disp`. Only the tuning-curve read-out depends on the switch (Table IV, Fig. 3, the
+variable `FTC_CRIT=disp`. Only the tuning-curve read-out depends on the switch (Table IV, Fig. 10, the
 tuning-curve objective J_ftc and the BM velocity at threshold); the mechanics and all other metrics are
 identical.
 
@@ -54,7 +54,7 @@ All scripts run from `model/`. Scripts that need the fitted state run through th
 `scripts/run_cat.py` (cat: installs lambda, the fitted 24-point gamma_c table and the lambda energy
 accounting) and `scripts/run_human.py` (human: lambda, N = 8192 and the state's nu floor). Scripts
 that build the state from a fit record (`c6_state.py`, `obs13.py si`, `shoulder.py`, `vel_fit.py`,
-`combo7.py`, the Fig. 9 section scripts) run with plain `python3`.
+`combo7.py`, the Fig. 4 section scripts) run with plain `python3`.
 
 ```
 cd model
@@ -88,25 +88,25 @@ Script names are in `scripts/` unless a folder is given; C = through `run_cat.py
 | Table I (six observations, both cat lines) | P c6_state.py 0.9501 (18 metrics, BM-gain metric, worst margin); P obs13.py si out/obs13_si.json and C obs13.py prof out/obs13_prof.json (observations 1 to 3, C_supp); C battery.py (calibration, distributed-source excursion) | 107 s |  |
 | Table II (cat parameters) | C table2.py out/table2.json; files best_d3.json, base_ckpt.json; fit: P combo7.py earlier/combo_c85.json r7b (FTC_CRIT=disp, as fitted), read-out P vel_fit.py out/vel_fit.json | 2 s | fits are long jobs |
 | Table III (human parameters) | files abr5_ckpt.json = joint_hs_hs856.json; H map_h.py out/map_h.json, H place_map_h.py out/place_map_h.json; fit: P joint_hs_cnt.py 1 1500 hs856b with INIT=init/init_hs856b.json (stop rule jhs_watch.py) | 4 s | fit is a long job |
-| Fig. 3 (cat tuning curves) and Sec. III.A per-curve numbers | C fig2_rev.py; P tc_numbers.py out/tc_numbers.json; figures/make_fig03.py ../model/out/fig2_curves.json ../model/out/table2.json plt |  | needs the individual curves (model/tc.plt), not redistributed |
+| Fig. 10 (cat tuning curves) and Sec. III.H per-curve numbers | C fig2_rev.py; P tc_numbers.py out/tc_numbers.json; figures/make_fig03.py ../model/out/fig2_curves.json ../model/out/table2.json plt |  | needs the individual curves (model/tc.plt), not redistributed |
 | Table IV (cat tuning-curve metrics, binned) | C bmdef_shoulder_s2.py base_ckpt.json out/bmdef_shoulder.json; P ftcbins_model.py out/bmdef_shoulder.json ../data/tc_bins.json out/ftcbins.json (displacement: FTC_CRIT=disp, _disp files) | 1 s | binned medians suffice |
 | J_ftc (tuning-curve objective) | P c6_state.py 0.9501 (velocity); FTC_CRIT=disp C6OUT=out/c6_state_disp.json P c6_state.py 0.9501 (displacement) | 48 s |  |
-| Fig. 4 (human wave-V latency) | H rms_N.py 8192 (and 16384); P latency_detail.py joint_hs_hs856.json out/latency_detail.json; figures/make_rev_figs.py | 8 s |  |
-| Fig. 5 (human tuning curves), Q_ERB | H ftc_h.py; H shape_h.py joint_hs_hs856.json out/shape_human.json; H qerb_h.py abr5_ckpt.json out/qerb_h.json | 4 s |  |
-| Fig. 6 (cat transfer functions, 2.2-kHz place) | C tf.py cat; figures/make_figs_cat.py | 6 s |  |
-| Fig. 7 (human transfer functions, 1-kHz place) | H tf.py human; figures/make_rev_figs.py | 40 s |  |
-| Table V (low-level transfer functions at CF) | C tf.py cat and P extract_cat.py out out/extract_cat.json (cat rows); H tf.py human and P tfx.py out/tf_human.json out/tfx_human.json (human rows) | 46 s |  |
-| Fig. 8 (energy accounting) | C dump_fig3_rev.py cat; H dump_fig3_rev.py human; C share_scan.py; C share_s2.py base_ckpt.json out/share_s2.json; figures/make_figs_cat.py, figures/make_rev_figs.py | 2 s |  |
-| Fig. 9 (the OHC share as a property of the section) | P fig09_data.py 0.950; P share_local.py 0.950; P crit_mode.py 0.950; P line_peak.py 0.950; figures/make_figs_cat.py | 1 s |  |
-| Sec. III.C (local inactivation) | C removal.py cat out/removal_cat.json; H removal.py hum out/removal_hum.json (force kept at the read-out place); C fisher_analog.py | 2 s |  |
-| Sec. III.D (power gain G_P, power flux) | C power_gain.py cat out/power_cat.json; H power_gain.py hum out/power_hum.json; C flux_profile.py out/flux_profile.json | 4 s |  |
-| Table VI (share maximum against lambda) | C c_robust.py cat; H c_robust.py human joint_hs_hs856.json; C c_scan_cert.py; H c_scan_cert_h.py joint_hs_hs856.json |  | long jobs |
-| Table VII (fixed-lambda cat fits) | P combo_bm.py 0 b0, P combo_bm.py 0.1 b1 (records earlier/combo_b0.json, combo_b1.json); rescoring C6CK=earlier/combo_b0.json P c6_state.py 0.9501; own read-outs C6CK=earlier/combo_b0.json P vel_fit.py out/vel_fit_b0.json (records earlier/vel_fit_r4_b0.json, _b1); P c6_state.py rescoring in run_all.sh step rescore | 105 s | combo_bm.py fits are long jobs |
-| Fig. 10 (human, distance from criticality and level) | H fig6_rev.py; figures/make_rev_figs.py | 14 min |  |
-| Fig. 11 (cat SFOAE delay against activity) | C b_crit.py; figures/make_figs_cat.py |  | long job |
-| Fig. 12 (SFOAE delays), tuning ratio | C sfoae_cat.py; C tuning_ratio.py; C sfoae_cat_lv.py; H sfoae_h.py; figures/make_figs_cat.py, figures/make_rev_figs.py | 6 s |  |
-| Table VIII (long-wave test) | C d_kh.py cat; H d_kh.py human joint_hs_hs856.json; P cd_tables.py; C wavenumber.py | 0 s | d_kh is a long job |
-| Line stability margin (Sec. II.E, III.D) | C line_margin.py cat_prof out/lm_cat_prof.json; C line_margin.py cat_si out/lm_cat_si.json; H line_margin.py hum out/lm_hum.json | 6 min |  |
+| Fig. 11 (human wave-V latency) | H rms_N.py 8192 (and 16384); P latency_detail.py joint_hs_hs856.json out/latency_detail.json; figures/make_rev_figs.py | 8 s |  |
+| Fig. 12 (human tuning curves), Q_ERB | H ftc_h.py; H shape_h.py joint_hs_hs856.json out/shape_human.json; H qerb_h.py abr5_ckpt.json out/qerb_h.json | 4 s |  |
+| Fig. 8 (cat transfer functions, 2.2-kHz place) | C tf.py cat; figures/make_figs_cat.py | 6 s |  |
+| Fig. 9 (human transfer functions, 1-kHz place) | H tf.py human; figures/make_rev_figs.py | 40 s |  |
+| Table VII (low-level transfer functions at CF) | C tf.py cat and P extract_cat.py out out/extract_cat.json (cat rows); H tf.py human and P tfx.py out/tf_human.json out/tfx_human.json (human rows) | 46 s |  |
+| Fig. 3 (energy accounting) | C dump_fig3_rev.py cat; H dump_fig3_rev.py human; C share_scan.py; C share_s2.py base_ckpt.json out/share_s2.json; figures/make_figs_cat.py, figures/make_rev_figs.py | 2 s |  |
+| Fig. 4 (the OHC share as a property of the section) | P fig09_data.py 0.950; P share_local.py 0.950; P crit_mode.py 0.950; P line_peak.py 0.950; figures/make_figs_cat.py | 1 s |  |
+| Table V and Sec. III.D (local inactivation) | C removal.py cat out/removal_cat.json; H removal.py hum out/removal_hum.json (force kept at the read-out place); C fisher_analog.py | 2 s |  |
+| Sec. III.A (power gain G_P, power flux) | C power_gain.py cat out/power_cat.json; H power_gain.py hum out/power_hum.json; C flux_profile.py out/flux_profile.json | 4 s |  |
+| Table VIII (share maximum against lambda) | C c_robust.py cat; H c_robust.py human joint_hs_hs856.json; C c_scan_cert.py; H c_scan_cert_h.py joint_hs_hs856.json |  | long jobs |
+| Table VI (fixed-lambda cat fits) | P combo_bm.py 0 b0, P combo_bm.py 0.1 b1 (records earlier/combo_b0.json, combo_b1.json); rescoring C6CK=earlier/combo_b0.json P c6_state.py 0.9501; own read-outs C6CK=earlier/combo_b0.json P vel_fit.py out/vel_fit_b0.json (records earlier/vel_fit_r4_b0.json, _b1); P c6_state.py rescoring in run_all.sh step rescore | 105 s | combo_bm.py fits are long jobs |
+| Fig. 5 (human, distance from criticality and level) | H fig6_rev.py; figures/make_rev_figs.py | 14 min |  |
+| Fig. 6 (cat SFOAE delay against activity) | C b_crit.py; figures/make_figs_cat.py |  | long job |
+| Fig. 7 (SFOAE delays), tuning ratio | C sfoae_cat.py; C tuning_ratio.py; C sfoae_cat_lv.py; H sfoae_h.py; figures/make_figs_cat.py, figures/make_rev_figs.py | 6 s |  |
+| Table IX (long-wave test) | C d_kh.py cat; H d_kh.py human joint_hs_hs856.json; P cd_tables.py; C wavenumber.py | 0 s | d_kh is a long job |
+| Line stability margin (Secs. II.E, III.C) | C line_margin.py cat_prof out/lm_cat_prof.json; C line_margin.py cat_si out/lm_cat_si.json; H line_margin.py hum out/lm_hum.json | 6 min |  |
 | Other Sec. III numbers | C passive_q10.py out/passive_q10.json (passive Q10); P shoulder.py ref out/shoulder_ref.json (shoulder index); P si_readplace.py combo_c856v.json; C shoulder_tm.py base_ckpt.json out/shoulder_tm.json | 6 s |  |
 
 ### Supplementary material
@@ -137,8 +137,8 @@ The cat auditory-nerve tuning curves were provided by M. C. Liberman and B. Delg
 redistributed. `data/tc_bins.json` holds only their binned medians (tip frequency, tip threshold, Q10,
 tip-to-tail difference of the eight CF bins with at least three fibers), which suffice to compute every
 number in Table IV and the tuning-curve objective J_ftc (the code uses them when the individual curves
-are absent). Fig. 3, which plots the individual curves, and the per-curve numbers of its caption and of
-Sec. III.A (`fig2_rev.py`, `tc_numbers.py`, `figures/make_fig03.py`) need the original curves in
+are absent). Fig. 10, which plots the individual curves, and the per-curve numbers of its caption and of
+Sec. III.H (`fig2_rev.py`, `tc_numbers.py`, `figures/make_fig03.py`) need the original curves in
 `model/tc.plt`; `run_all.sh` runs those steps only when that file is present.
 
 The human wave-V latency target is the published formula of Neely et al. (1988), evaluated in code
@@ -149,32 +149,34 @@ The human wave-V latency target is the published formula of Neely et al. (1988),
 ## Figures
 
 `figures/` holds the generators of the PLT files of the figures: `mkfig1.py` (Fig. 1),
-`make_figs_cat.py` (cat panels of Figs. 2, 6, 8, 9, 11, 12a; Fig. 3 through `make_fig03.py`),
-`make_rev_figs.py` (human panels of Figs. 2, 4, 5, 7, 8b, 10, 12b; it also holds the shared plotting
+`make_figs_cat.py` (cat panels of Figs. 2, 8, 3, 4, 6, 7a; Fig. 10 through `make_fig03.py`),
+`make_rev_figs.py` (human panels of Figs. 2, 11, 12, 9, 3b, 5, 7b; it also holds the shared plotting
 helpers), `make_tm_figs.py` (Figs. S1 and S2) and `overlap.py` (a check that no lettering overlaps).
 Run them from `figures/` after the scripts; they read `../model/out/`. The two-species panels
-(Figs. 2a, 2b, 8b) combine the cat series of `make_figs_cat.py` with the human series of
+(Figs. 2a, 2b, 3b) combine the cat series of `make_figs_cat.py` with the human series of
 `make_rev_figs.py`. The PLT files are rendered to EPS and SVG with the author's plotting program tplt,
 which is not part of this repository; the JSON in `model/out/` holds every plotted value.
+
+The PLT and EPS files keep the file numbering of an earlier draft (`Fig01` to `Fig12`). Their numbers in the article are: Fig01 1, Fig02 2, Fig03 10, Fig04 11, Fig05 12, Fig06 8, Fig07 9, Fig08 3, Fig09 4, Fig10 5, Fig11 6, Fig12 7.
 
 ## Long jobs (documented, not run by default)
 
 | Step | Command (from model/) | Result | Time |
 |---|---|---|---|
-| b_crit | C b_crit.py | Fig. 11, Table SIV | 34 min |
-| c_robust_cat | C c_robust.py cat | Tables VI, SV, SVII | 47 min |
-| c_scan_cert | C c_scan_cert.py | Tables VI, SVII | 15 min |
-| d_kh_cat | C d_kh.py cat | Tables VIII, SIX, SX | 23 s |
+| b_crit | C b_crit.py | Fig. 6, Table SIV | 34 min |
+| c_robust_cat | C c_robust.py cat | Tables VIII, SV, SVII | 47 min |
+| c_scan_cert | C c_scan_cert.py | Tables VIII, SVII | 15 min |
+| d_kh_cat | C d_kh.py cat | Tables IX, SIX, SX | 23 s |
 | abl_ref | P abl.py VARIANT (10 variants; ref first) | Table SXVII | 3 min |
-| lam_conv | C lam_conv.py out/lam_conv.json | Sec. III.C, grid check of the lambda scan | 40 min |
+| lam_conv | C lam_conv.py out/lam_conv.json | Sec. III.F, grid check of the lambda scan | 40 min |
 | lam_fixed | P mkstate.py earlier/combo_c708.json ../state_c708; then in ../state_c708: C lam_fixed.py cat out/lam_fixed_cat.json | Table SVIII (made at the lambda = 0.7085 section) | 43 min |
 | cert_h_ctrl | H cert_h_ctrl.py joint_hs_hs856.json out/cert_h_ctrl.json | Table SXV (positive control) | 13 min |
 | eig_h_ctrl | H eig_h_ctrl.py joint_hs_hs856.json out/eig_h_ctrl.json 128 256 512 | Table SXV (eigenvalue counts) | 34 min |
-| c_scan_cert_h | H c_scan_cert_h.py joint_hs_hs856.json | Tables VI, SVII | 26 min |
-| c_robust_hum | H c_robust.py human joint_hs_hs856.json | Tables VI, SVI | 59 min |
-| d_kh_hum | H d_kh.py human joint_hs_hs856.json | Tables VIII, SIX, SX | 13 s |
-| tau_test | H tau_test.py | Sec. III.A (read-out tau_a bound) | 40 s |
-| nu_scan | H nu_scan.py | Sec. III.A (activity-profile sensitivity) | 72 s |
+| c_scan_cert_h | H c_scan_cert_h.py joint_hs_hs856.json | Tables VIII, SVII | 26 min |
+| c_robust_hum | H c_robust.py human joint_hs_hs856.json | Tables VIII, SVI | 59 min |
+| d_kh_hum | H d_kh.py human joint_hs_hs856.json | Tables IX, SIX, SX | 13 s |
+| tau_test | H tau_test.py | Sec. III.H (read-out tau_a bound) | 40 s |
+| nu_scan | H nu_scan.py | Sec. III.H (activity-profile sensitivity) | 72 s |
 | cd_tables | P cd_tables.py | tables from the c_robust and d_kh outputs | 0 s |
 
 Fits (not run by `run_all.sh`; times from the original runs on one core):
@@ -183,7 +185,7 @@ Fits (not run by `run_all.sh`; times from the original runs on one core):
 |---|---|---|
 | P combo7.py earlier/combo_c85.json r7b, with FTC_CRIT=disp | cat combined fit (the c856 state, 1500 evaluations); the fit used the displacement read-out | about 75 min |
 | P combo7.py earlier/combo_c708.json r7a, with FTC_CRIT=disp | cat refit from c708 (Supplement) | about 75 min |
-| P combo_bm.py 0 b0 ; P combo_bm.py 0.1 b1 | fixed-lambda cat fits (Table VII, SXVI) | hours |
+| P combo_bm.py 0 b0 ; P combo_bm.py 0.1 b1 | fixed-lambda cat fits (Table VI, SXVI) | hours |
 | INIT=init/init_hs856b.json P joint_hs_cnt.py 1 1500 hs856b (and hs856a); P jhs_watch.py TAG PID stops at a stall of 150 evaluations | human refit at the c856 section (Table III, SXI) | about 1 h per start |
 | P combo.py, P joint_hs.py, P joint_h.py, P lam_refit.py, P run_s2.py, P refit_*.py, P bmgain_refit.py | earlier fit stages (Sec. II.I; Tables II and III of the submitted version) | hours |
 

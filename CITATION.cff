@@ -1,13 +1,13 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite it as below and cite the article."
 type: software
-title: "Where outer hair cells deliver net power in a cochlear model of cat and human: model code, parameter files and scripts"
+title: "Outer hair cells replace dissipation at the response peak in a cochlear model of cat and human: model code, parameter files and scripts"
 authors:
   - family-names: Neely
     given-names: "Stephen T."
     orcid: "https://orcid.org/0000-0002-1349-5386"
     affiliation: "Boys Town National Research Hospital"
-version: "1.0.4"
+version: "1.0.5"
 license: BSD-3-Clause
 keywords:
   - cochlear amplifier
